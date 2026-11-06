@@ -109,7 +109,7 @@ Render can restrict heavy outbound service traffic. Keep all accounts on Free an
 
 ## Render deployment
 
-Publishing resumes once the repository URL is supplied. Inspect its branch and contents first, preserve existing work, commit the app with a clear message and push without force-pushing. Do not initialize against or overwrite an assumed remote.
+Published to [main](https://github.com/howardcallanta00-ship-it/counterpoint-tfa7/tree/main) after verifying that the supplied repository was empty. Initial app commit: `1902702`. No force push was used. [GitHub verification](https://github.com/howardcallanta00-ship-it/counterpoint-tfa7/actions/runs/42213353414) passed, including tests, formatting and the production Docker image build.
 
 ### 1. Prepare the external data project
 
@@ -154,7 +154,7 @@ The Docker image installs PHP extensions and locked production dependencies, use
 
 Render health checks `/up`. Laravel trusts the proxy and forces generated URLs to HTTPS in production. Application output goes to stderr. Sessions use encrypted cookies so they do not depend on temporary local files. A stable APP_KEY is essential.
 
-The Docker build has not been executed locally because Docker is unavailable. The repository's GitHub Actions workflow runs the suite and builds the image when publishing makes it available; workflow runs have not yet been observed. Keep deployment status pending until an actual build and health check succeed.
+Docker is unavailable locally, but the production image **built successfully in GitHub Actions** for commit `1902702`. The same run passed tests and formatting. Runtime PostgreSQL/S3 connectivity and Render health checks remain unverified until deployment.
 
 ## Verification
 
@@ -192,8 +192,10 @@ The source ZIP was extracted into a separate clean directory. Locked dependencie
 | Responsive 375 / 768 / 1280 | Passed locally | Browser page checks; no page-wide overflow after fixing mobile table caption positioning; tables scroll inside cards. Screenshots reviewed. |
 | Basic accessibility | Passed local checks | Labels, descriptive avatar alt, focus, summary links, semantic regions, keyboard menu, 44px controls and text contrast checked. Not a full screen-reader audit. |
 | S3 request compatibility | Passed offline | Actual adapter/SDK: relative key, public URL, no ACL, PUT/HEAD/DELETE. Live credentials/network unverified. |
-| Docker / production PostgreSQL | **Not verified** | Docker unavailable; no external database provisioned. |
-| GitHub push / Render deploy | **Not performed** | Waiting for repository URL and authorized account access. |
+| Docker image build | Passed on GitHub | [Verification run](https://github.com/howardcallanta00-ship-it/counterpoint-tfa7/actions/runs/42213353414) built the production Dockerfile successfully. Runtime not yet exercised. |
+| Production PostgreSQL / S3 | **Not verified** | External services and credentials still pending. |
+| GitHub push | Passed | Initial application commit `1902702` pushed to `main`; remote SHA verified. |
+| Render deployment | **Not performed** | Awaiting free service setup and authorized account access. |
 | Clean source archive installation | Passed locally | Separate extraction, dependency installation, migrations, repeat seeding, tests, formatting and Composer validation. |
 
 ### Live acceptance procedure still required
